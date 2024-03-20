@@ -158,7 +158,7 @@ jobs:
         if: ${{matrix.testSuite !='elements-regression'}}
         env:
           TEST_SUITE: "@${{matrix.testSuite}}"
-        run: npm run test:playwright -- --reporter=${{inputs.reporter || 'list,github'}}
+        run: npm run test:playwright
       - name: Run element regression tests
         if: ${{matrix.testSuite =='elements-regression'}}
         run: npm run test:playwright:elements-regression -- --reporter=${{inputs.reporter || 'list,github'}}
@@ -168,6 +168,12 @@ jobs:
           name: playwright-test-results-${{ matrix.testSuite }}
           path: ${{inputs.path-to-results || 'test-results/'}}
           retention-days: 2
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            test-results/*.json
 
   test-result:
     needs: Playwright
