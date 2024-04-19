@@ -6,6 +6,9 @@ import ButtonWidget from '../pages/widgets/button_widget';
 const defaultBtnName = 'Click here';
 
 test( 'Button widget sanity test', async ( { page }, testInfo ) => {
+	// Const { children } = await import( '../testData/suites.json' );
+
+	// Console.log( children[ 0 ].children[ 0 ].children );
 	// Arrange.
 	const wpAdmin = new WpAdminPage( page, testInfo ),
 		editor = await wpAdmin.openNewPage();
